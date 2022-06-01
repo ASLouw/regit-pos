@@ -1,0 +1,135 @@
+name: Continuous Integration
+
+on: [pull_request]
+
+jobs:
+  # Dependencies
+  Dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      # Pull Repository
+      - name: Pull repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      # Fetch Branch
+      - name: Fetch ${{github.head_ref}}
+        run: git fetch origin ${{github.head_ref}}
+
+      # Install Node
+      - name: Install Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      # Get Cached Dependencies
+      - name: Get Cached Dependencies
+        uses: actions/cache@v2
+        id: npm-cache
+        with:
+          path: node_modules
+          key: node-modules-${{ hashfiles('package-lock.json') }}
+
+      # Install Dependencies
+      - name: Install Dependencies
+        run: npm install
+
+  # Lint
+  Lint:
+    needs: Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      # Pull Repository
+      - name: Pull Repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      # Fetch Branch
+      - name: Fetch ${{github.head_ref}}
+        run: git fetch origin ${{github.head_ref}}
+
+      # Get Cached Dependencies
+      - name: Get Cached Dependencies
+        uses: actions/cache@v2
+        id: npm-cache
+        with:
+          path: node_modules
+          key: node-modules-${{ hashfiles('package-lock.json') }}
+
+        # Lint
+      - name: Lint
+        run: npm run lint
+
+  # Build
+  Build:
+    needs: Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      # Pull Repository
+      - name: Pull Repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      # Fetch Branch
+      - name: Fetch ${{github.head_ref}}
+        run: git fetch origin ${{github.head_ref}}
+
+      # Install Node
+      - name: Install Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      # Get Cached Dependencies
+      - name: Get Cached Dependencies
+        uses: actions/cache@v2
+        id: npm-cache
+        with:
+          path: node_modules
+          key: node-modules-${{ hashfiles('package-lock.json') }}
+
+      # Install Dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # # Prisma Generate
+      # - name: Prisma Generate
+      #   run: yarn prisma:generate
+
+      # Build
+      - name: Build
+        run: npm run build
+
+  # Test
+  Test:
+    needs: Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      # Pull Repository
+      - name: Pull Repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      # Fetch Branch
+      - name: Fetch ${{github.head_ref}}
+        run: git fetch origin ${{github.head_ref}}
+
+      # Get Cached Dependencies
+      - name: Get Cached Dependencies
+        uses: actions/cache@v2
+        id: npm-cache
+        with:
+          path: node_modules
+          key: node-modules-${{ hashfiles('package-lock.json') }}
+
+      # # Prisma Generate
+      # - name: Prisma Generate
+      #   run: yarn prisma:generate
+
+        # Test
+      - name: Test
+        run: npm run test
