@@ -1,0 +1,48 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String?
+  role  String  @default("Client")
+
+  @@map("users")
+}
+
+model Item {
+  id        Int      @id @default(autoincrement())
+  name      String
+  price     Decimal
+  sales ItemsOnSales[]
+
+  @@map("items")
+}
+
+model Sale {
+  id        Int      @id @default(autoincrement())
+  totalPrice     Decimal
+  items ItemsOnSales[]
+
+  @@map("sales")
+}
+
+model ItemsOnSales {
+  sale       Sale     @relation(fields: [saleId], references: [id])
+  saleId     Int // relation scalar field (used in the `@relation` attribute above)
+  category   Item @relation(fields: [itemId], references: [id])
+  itemId Int // relation scalar field (used in the `@relation` attribute above)
+  assignedAt DateTime @default(now())
+  assignedBy String
+
+  @@id([itemId, saleId])
+}
