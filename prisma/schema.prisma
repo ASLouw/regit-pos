@@ -11,27 +11,29 @@ generator client {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  role  String  @default("Client")
+  id         Int      @id @default(autoincrement())
+  email      String   @unique
+  name       String?
+  role       String   @default("Client")
+  clientUser Report[]
 
   @@map("users")
 }
 
 model Item {
-  id        Int      @id @default(autoincrement())
-  name      String
-  price     Decimal
+  id    Int            @id @default(autoincrement())
+  name  String
+  price Decimal
   sales ItemsOnSales[]
 
   @@map("items")
 }
 
 model Sale {
-  id        Int      @id @default(autoincrement())
-  totalPrice     Decimal
-  items ItemsOnSales[]
+  id         Int            @id @default(autoincrement())
+  totalPrice Decimal
+  items      ItemsOnSales[]
+  reports    Report[]
 
   @@map("sales")
 }
@@ -39,10 +41,20 @@ model Sale {
 model ItemsOnSales {
   sale       Sale     @relation(fields: [saleId], references: [id])
   saleId     Int // relation scalar field (used in the `@relation` attribute above)
-  category   Item @relation(fields: [itemId], references: [id])
-  itemId Int // relation scalar field (used in the `@relation` attribute above)
+  category   Item     @relation(fields: [itemId], references: [id])
+  itemId     Int // relation scalar field (used in the `@relation` attribute above)
   assignedAt DateTime @default(now())
   assignedBy String
 
   @@id([itemId, saleId])
+}
+
+model Report {
+  id       Int   @id @default(autoincrement())
+  client   User? @relation(fields: [clientId], references: [id])
+  clientId Int?
+  sale     Sale? @relation(fields: [saleId], references: [id])
+  saleId   Int?
+
+  @@map("reports")
 }
