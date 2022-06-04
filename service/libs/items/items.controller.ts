@@ -23,7 +23,7 @@ export class ItemsController {
     return this.itemService.items({ where: {} });
   }
 
-  @MessagePattern({ cmd: 'updateUser' })
+  @MessagePattern({ cmd: 'updateItem' })
   update(@Payload() updateItemDto: UpdateItemDto) {
     const id = updateItemDto.id    
     return this.itemService.updateItem({where:{id}, data:{name:updateItemDto.name, price:updateItemDto.price} });
