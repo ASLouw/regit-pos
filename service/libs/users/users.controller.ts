@@ -19,10 +19,10 @@ export class UsersController {
   //   return of("pong").pipe(delay(1000));
   // }
 
-  @MessagePattern({ cmd: "createUser" })
+  @MessagePattern({ cmd: 'createUser' })
   create(@Payload() createUserDto: CreateUserDto) {
-    console.log(createUserDto)
-        return this.userService.createUser(createUserDto);
+    console.log(createUserDto);
+    return this.userService.createUser(createUserDto);
 
     // return of("pong");
   }

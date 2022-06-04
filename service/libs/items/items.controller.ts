@@ -7,22 +7,20 @@ import { CreateItemDto } from 'libs/dto/create-item.dto';
 export class UsersController {
   constructor(private readonly itmeService: ItemsService) {}
 
-  @MessagePattern({ cmd: "createItem" })
+  @MessagePattern({ cmd: 'createItem' })
   create(@Payload() createItemDto: CreateItemDto) {
-        return this.itmeService.createItem(createItemDto);
+    return this.itmeService.createItem(createItemDto);
   }
 
-  @MessagePattern({ cmd: "getItem" })
+  @MessagePattern({ cmd: 'getItem' })
   get(@Payload() id: number) {
-        return this.itmeService.item({id});
+    return this.itmeService.item({ id });
   }
 
-  @MessagePattern({ cmd: "getItems" })
+  @MessagePattern({ cmd: 'getItems' })
   getItems(@Payload() r) {
-        return this.itmeService.items({where:{
-        }});
+    return this.itmeService.items({ where: {} });
   }
-
 
   // @Get()
   // findAll(): Promise<User[]> {

@@ -14,23 +14,21 @@ export class UsersController {
   //   return this.usersService.create(createUserDto);
   // }
 
-  @MessagePattern({ cmd: "ping" })
+  @MessagePattern({ cmd: 'ping' })
   ping(_: any) {
-    return of("pong").pipe(delay(1000));
+    return of('pong').pipe(delay(1000));
   }
 
-  @MessagePattern({ cmd: "user" })
+  @MessagePattern({ cmd: 'user' })
   create(@Payload() createUserDto: CreateUserDto) {
-    console.log(createUserDto)
-        return this.userService.createUser(createUserDto);
+    console.log(createUserDto);
+    return this.userService.createUser(createUserDto);
 
     // return of("pong");
   }
 
   @Post('user')
-  async signupUser(
-    @Body() createUserDto: CreateUserDto,
-  ): Promise<User> {
+  async signupUser(@Body() createUserDto: CreateUserDto): Promise<User> {
     return this.userService.createUser(createUserDto);
   }
 
