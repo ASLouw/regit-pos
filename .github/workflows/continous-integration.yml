@@ -27,13 +27,15 @@ jobs:
       # Get Cached Dependencies
       - name: Get Cached Dependencies
         uses: actions/cache@v2
+        working-directory: ./service
         id: npm-cache
         with:
           path: node_modules
-          key: node-modules-${{ hashfiles('service/package-lock.json') }}
+          key: node-modules-${{ hashfiles('package-lock.json') }}
 
       # Install Dependencies
       - name: Install Dependencies
+        working-directory: ./service
         run: npm install
 
   # Lint
@@ -54,13 +56,15 @@ jobs:
       # Get Cached Dependencies
       - name: Get Cached Dependencies
         uses: actions/cache@v2
+        working-directory: ./service
         id: npm-cache
         with:
           path: node_modules
-          key: node-modules-${{ hashfiles('service/package-lock.json') }}
+          key: node-modules-${{ hashfiles('package-lock.json') }}
 
         # Lint
       - name: Lint
+        working-directory: ./service
         run: npm run lint
 
   # Build
@@ -90,15 +94,16 @@ jobs:
         id: npm-cache
         with:
           path: node_modules
-          key: node-modules-${{ hashfiles('service/package-lock.json') }}
+          key: node-modules-${{ hashfiles('package-lock.json') }}
 
       # Install Dependencies
       - name: Install Dependencies
         run: npm install
 
-      # # Prisma Generate
-      # - name: Prisma Generate
-      #   run: yarn prisma:generate
+      # Prisma Generate
+      - name: Prisma Generate
+        working-directory: ./service
+        run: npx prisma:generate
 
       # Build
       - name: Build
@@ -136,7 +141,7 @@ jobs:
         run: npm run test
 
 # API
-   # Dependencies
+  #  Dependencies
   api-gatewayDependencies:
     runs-on: ubuntu-latest
     steps:
@@ -159,13 +164,15 @@ jobs:
       # Get Cached Dependencies
       - name: Get Cached Dependencies
         uses: actions/cache@v2
+        working-directory: ./api-gateway
         id: npm-cache
         with:
           path: node_modules
-          key: node-modules-${{ hashfiles('api-gateway/package-lock.json') }}
+          key: node-modules-${{ hashfiles('package-lock.json') }}
 
       # Install Dependencies
       - name: Install Dependencies
+        working-directory: ./api-gateway
         run: npm install
 
   # Lint
@@ -186,13 +193,15 @@ jobs:
       # Get Cached Dependencies
       - name: Get Cached Dependencies
         uses: actions/cache@v2
+        working-directory: ./api-gateway
         id: npm-cache
         with:
           path: node_modules
-          key: node-modules-${{ hashfiles('api-gateway/package-lock.json') }}
+          key: node-modules-${{ hashfiles('package-lock.json') }}
 
         # Lint
       - name: Lint
+        working-directory: ./api-gateway
         run: npm run lint
 
   # Build
@@ -219,21 +228,20 @@ jobs:
       # Get Cached Dependencies
       - name: Get Cached Dependencies
         uses: actions/cache@v2
+        working-directory: ./api-gateway
         id: npm-cache
         with:
           path: node_modules
-          key: node-modules-${{ hashfiles('api-gateway/package-lock.json') }}
+          key: node-modules-${{ hashfiles('package-lock.json') }}
 
       # Install Dependencies
       - name: Install Dependencies
+        working-directory: ./api-gateway
         run: npm install
-
-      # # Prisma Generate
-      # - name: Prisma Generate
-      #   run: yarn prisma:generate
 
       # Build
       - name: Build
+        working-directory: ./api-gateway
         run: npm run build
 
   # Test
