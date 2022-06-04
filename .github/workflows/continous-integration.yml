@@ -116,7 +116,7 @@ jobs:
         uses: actions/cache@v2
         id: npm-cache
         with:
-          path: node_modules
+          path: service/node_modules
           key: node-modules-${{ hashfiles('service/package-lock.json') }}
 
       # # Prisma Generate
@@ -125,7 +125,9 @@ jobs:
 
         # Test
       - name: Test
-        run: npm run test
+        run: |
+          cd service
+          npm run test
 
 # API
   #  Dependencies
@@ -166,9 +168,6 @@ jobs:
   api-gatewayBuild:
     needs: api-gatewayDependencies
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./api-gateway
     steps:
       # Pull Repository
       - name: Pull Repository
@@ -210,9 +209,6 @@ jobs:
   api-gatewayTest:
     needs: api-gatewayDependencies
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./api-gateway
     steps:
       # Pull Repository
       - name: Pull Repository
