@@ -38,7 +38,7 @@ jobs:
 
   # Lint
   serviceLint:
-    needs: Dependencies
+    needs: serviceDependencies
     runs-on: ubuntu-latest
     steps:
       # Pull Repository
@@ -65,7 +65,7 @@ jobs:
 
   # Build
   serviceBuild:
-    needs: Dependencies
+    needs: serviceDependencies
     runs-on: ubuntu-latest
     steps:
       # Pull Repository
@@ -106,7 +106,7 @@ jobs:
 
   # Test
   serviceTest:
-    needs: Dependencies
+    needs: serviceDependencies
     runs-on: ubuntu-latest
     steps:
       # Pull Repository
@@ -170,7 +170,7 @@ jobs:
 
   # Lint
   api-gatewayLint:
-    needs: Dependencies
+    needs: api-gatewayDependencies
     runs-on: ubuntu-latest
     steps:
       # Pull Repository
@@ -197,7 +197,7 @@ jobs:
 
   # Build
   api-gatewayBuild:
-    needs: Dependencies
+    needs: api-gatewayDependencies
     runs-on: ubuntu-latest
     steps:
       # Pull Repository
@@ -238,7 +238,7 @@ jobs:
 
   # Test
   api-gatewayTest:
-    needs: Dependencies
+    needs: api-gatewayDependencies
     runs-on: ubuntu-latest
     steps:
       # Pull Repository
