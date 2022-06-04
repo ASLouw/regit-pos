@@ -14,12 +14,12 @@ export class UsersController {
   //   return this.usersService.create(createUserDto);
   // }
 
-  // @MessagePattern({ cmd: "ping" })
-  // ping(_: any) {
-  //   return of("pong").pipe(delay(1000));
-  // }
+  @MessagePattern({ cmd: "ping" })
+  ping(_: any) {
+    return of("pong").pipe(delay(1000));
+  }
 
-  @MessagePattern({ cmd: "createUser" })
+  @MessagePattern({ cmd: "user" })
   create(@Payload() createUserDto: CreateUserDto) {
     console.log(createUserDto)
         return this.userService.createUser(createUserDto);
@@ -27,12 +27,12 @@ export class UsersController {
     // return of("pong");
   }
 
-  // @Post('user')
-  // async signupUser(
-  //   @Body() createUserDto: CreateUserDto,
-  // ): Promise<User> {
-  //   return this.userService.createUser(createUserDto);
-  // }
+  @Post('user')
+  async signupUser(
+    @Body() createUserDto: CreateUserDto,
+  ): Promise<User> {
+    return this.userService.createUser(createUserDto);
+  }
 
   // @Get()
   // findAll(): Promise<User[]> {

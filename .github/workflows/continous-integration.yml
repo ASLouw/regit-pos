@@ -3,8 +3,9 @@ name: Continuous Integration
 on: [pull_request]
 
 jobs:
+# Service
   # Dependencies
-  Dependencies:
+  serviceDependencies:
     runs-on: ubuntu-latest
     steps:
       # Pull Repository
@@ -29,14 +30,14 @@ jobs:
         id: npm-cache
         with:
           path: node_modules
-          key: node-modules-${{ hashfiles('package-lock.json') }}
+          key: node-modules-${{ hashfiles('service/package-lock.json') }}
 
       # Install Dependencies
       - name: Install Dependencies
         run: npm install
 
   # Lint
-  Lint:
+  serviceLint:
     needs: Dependencies
     runs-on: ubuntu-latest
     steps:
@@ -56,14 +57,14 @@ jobs:
         id: npm-cache
         with:
           path: node_modules
-          key: node-modules-${{ hashfiles('package-lock.json') }}
+          key: node-modules-${{ hashfiles('service/package-lock.json') }}
 
         # Lint
       - name: Lint
         run: npm run lint
 
   # Build
-  Build:
+  serviceBuild:
     needs: Dependencies
     runs-on: ubuntu-latest
     steps:
@@ -89,7 +90,7 @@ jobs:
         id: npm-cache
         with:
           path: node_modules
-          key: node-modules-${{ hashfiles('package-lock.json') }}
+          key: node-modules-${{ hashfiles('service/package-lock.json') }}
 
       # Install Dependencies
       - name: Install Dependencies
@@ -104,7 +105,7 @@ jobs:
         run: npm run build
 
   # Test
-  Test:
+  serviceTest:
     needs: Dependencies
     runs-on: ubuntu-latest
     steps:
@@ -124,7 +125,139 @@ jobs:
         id: npm-cache
         with:
           path: node_modules
-          key: node-modules-${{ hashfiles('package-lock.json') }}
+          key: node-modules-${{ hashfiles('service/package-lock.json') }}
+
+      # # Prisma Generate
+      # - name: Prisma Generate
+      #   run: yarn prisma:generate
+
+        # Test
+      - name: Test
+        run: npm run test
+
+# API
+   # Dependencies
+  api-gatewayDependencies:
+    runs-on: ubuntu-latest
+    steps:
+      # Pull Repository
+      - name: Pull repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      # Fetch Branch
+      - name: Fetch ${{github.head_ref}}
+        run: git fetch origin ${{github.head_ref}}
+
+      # Install Node
+      - name: Install Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      # Get Cached Dependencies
+      - name: Get Cached Dependencies
+        uses: actions/cache@v2
+        id: npm-cache
+        with:
+          path: node_modules
+          key: node-modules-${{ hashfiles('api-gateway/package-lock.json') }}
+
+      # Install Dependencies
+      - name: Install Dependencies
+        run: npm install
+
+  # Lint
+  api-gatewayLint:
+    needs: Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      # Pull Repository
+      - name: Pull Repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      # Fetch Branch
+      - name: Fetch ${{github.head_ref}}
+        run: git fetch origin ${{github.head_ref}}
+
+      # Get Cached Dependencies
+      - name: Get Cached Dependencies
+        uses: actions/cache@v2
+        id: npm-cache
+        with:
+          path: node_modules
+          key: node-modules-${{ hashfiles('api-gateway/package-lock.json') }}
+
+        # Lint
+      - name: Lint
+        run: npm run lint
+
+  # Build
+  api-gatewayBuild:
+    needs: Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      # Pull Repository
+      - name: Pull Repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      # Fetch Branch
+      - name: Fetch ${{github.head_ref}}
+        run: git fetch origin ${{github.head_ref}}
+
+      # Install Node
+      - name: Install Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      # Get Cached Dependencies
+      - name: Get Cached Dependencies
+        uses: actions/cache@v2
+        id: npm-cache
+        with:
+          path: node_modules
+          key: node-modules-${{ hashfiles('api-gateway/package-lock.json') }}
+
+      # Install Dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # # Prisma Generate
+      # - name: Prisma Generate
+      #   run: yarn prisma:generate
+
+      # Build
+      - name: Build
+        run: npm run build
+
+  # Test
+  api-gatewayTest:
+    needs: Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      # Pull Repository
+      - name: Pull Repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      # Fetch Branch
+      - name: Fetch ${{github.head_ref}}
+        run: git fetch origin ${{github.head_ref}}
+
+      # Get Cached Dependencies
+      - name: Get Cached Dependencies
+        uses: actions/cache@v2
+        id: npm-cache
+        with:
+          path: node_modules
+          key: node-modules-${{ hashfiles('api-gateway/package-lock.json') }}
 
       # # Prisma Generate
       # - name: Prisma Generate
