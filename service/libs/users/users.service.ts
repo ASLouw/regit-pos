@@ -9,8 +9,9 @@ export class UsersService {
   async user(
     userWhereUniqueInput: Prisma.UserWhereUniqueInput,
   ): Promise<User | null> {
+    const id:number  = Number(userWhereUniqueInput.id['id'])
     return this.prisma.user.findUnique({
-      where: userWhereUniqueInput,
+      where: {id},
     });
   }
 
@@ -42,9 +43,11 @@ export class UsersService {
     data: Prisma.UserUpdateInput;
   }): Promise<User> {
     const { where, data } = params;
+    const id:number  = Number(where.id);
+
     return this.prisma.user.update({
       data,
-      where,
+      where:{id},
     });
   }
 

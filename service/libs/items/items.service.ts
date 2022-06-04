@@ -9,8 +9,10 @@ export class ItemsService {
   async item(
     itemWhereUniqueInput: Prisma.ItemWhereUniqueInput,
   ): Promise<Item | null> {
+    const id:number  = Number(itemWhereUniqueInput.id['id'])
+
     return this.prisma.item.findUnique({
-      where: itemWhereUniqueInput,
+      where: {id},
     });
   }
 
@@ -42,9 +44,10 @@ export class ItemsService {
     data: Prisma.ItemUpdateInput;
   }): Promise<Item> {
     const { where, data } = params;
+    const id:number  = Number(where.id);
     return this.prisma.item.update({
       data,
-      where,
+      where:{id},
     });
   }
 
