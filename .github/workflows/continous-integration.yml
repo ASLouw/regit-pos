@@ -201,34 +201,34 @@ jobs:
 
 #   # Test
 #   api-gatewayTest:
-    needs: api-gatewayDependencies
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./api-gateway
-    steps:
-      # Pull Repository
-      - name: Pull Repository
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+    # needs: api-gatewayDependencies
+    # runs-on: ubuntu-latest
+    # defaults:
+    #   run:
+    #     working-directory: ./api-gateway
+    # steps:
+    #   # Pull Repository
+    #   - name: Pull Repository
+    #     uses: actions/checkout@v2
+    #     with:
+    #       fetch-depth: 0
 
-      # Fetch Branch
-      - name: Fetch ${{github.head_ref}}
-        run: git fetch origin ${{github.head_ref}}
+    #   # Fetch Branch
+    #   - name: Fetch ${{github.head_ref}}
+    #     run: git fetch origin ${{github.head_ref}}
 
-      # Get Cached Dependencies
-      - name: Get Cached Dependencies
-        uses: actions/cache@v2
-        id: npm-cache
-        with:
-          path: node_modules
-          key: node-modules-${{ hashfiles('package-lock.json') }}
+    #   # Get Cached Dependencies
+    #   - name: Get Cached Dependencies
+    #     uses: actions/cache@v2
+    #     id: npm-cache
+    #     with:
+    #       path: node_modules
+    #       key: node-modules-${{ hashfiles('package-lock.json') }}
 
-      # # Prisma Generate
-      # - name: Prisma Generate
-      #   run: yarn prisma:generate
+    #   # # Prisma Generate
+    #   # - name: Prisma Generate
+    #   #   run: yarn prisma:generate
 
-        # Test
-      - name: Test
-        run: npm run test
+    #     # Test
+    #   - name: Test
+    #     run: npm run test
