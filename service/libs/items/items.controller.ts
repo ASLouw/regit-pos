@@ -18,22 +18,7 @@ export class UsersController {
   }
 
   @MessagePattern({ cmd: 'getItems' })
-  getItems(@Payload() r) {
+  getItems( ) {
     return this.itmeService.items({ where: {} });
   }
-
-  // @Get()
-  // findAll(): Promise<User[]> {
-  //   return this.usersService.findAll();
-  // }
-
-  // @Get(':id')
-  // findOne(@Param('id') id: string): Promise<User> {
-  //   return this.usersService.findOne(id);
-  // }
-
-  // @Delete(':id')
-  // remove(@Param('id') id: string): Promise<void> {
-  //   return this.usersService.remove(id);
-  // }
 }
