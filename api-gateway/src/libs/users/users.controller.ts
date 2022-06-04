@@ -1,9 +1,9 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { CreateUserDto } from '../dto/create-user.dto';
-import { User } from '@prisma/client';
+// import { User } from '@prisma/client';
 import { UsersService } from './users.service';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { delay, of } from 'rxjs';
+import { of } from 'rxjs';
 
 @Controller('users')
 export class UsersController {
@@ -14,25 +14,19 @@ export class UsersController {
   //   return this.usersService.create(createUserDto);
   // }
 
-  @MessagePattern({ cmd: "ping" })
-  ping(_: any) {
-    return of("pong").pipe(delay(1000));
-  }
-
   @MessagePattern({ cmd: "user" })
-  create(@Payload() createUserDto: CreateUserDto) {
-    console.log(createUserDto)
+  ping(@Payload() createUserDto: CreateUserDto[],) {
         return this.userService.createUser(createUserDto);
 
     // return of("pong");
   }
 
-  @Post('user')
-  async signupUser(
-    @Body() createUserDto: CreateUserDto,
-  ): Promise<User> {
-    return this.userService.createUser(createUserDto);
-  }
+  // @Post('user')
+  // async signupUser(
+  //   @Body() createUserDto: CreateUserDto,
+  // ): Promise<User> {
+  //   return this.userService.createUser(createUserDto);
+  // }
 
   // @Get()
   // findAll(): Promise<User[]> {

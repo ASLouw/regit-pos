@@ -1,6 +1,8 @@
 import { Injectable, Inject } from "@nestjs/common";
 import { ClientProxy } from "@nestjs/microservices";
 import { map } from "rxjs/operators";
+import { CreateUserDto } from "./libs/dto/create-user.dto";
+
 
 @Injectable()
 export class AppService {
@@ -8,10 +10,11 @@ export class AppService {
     @Inject("SERVICE") private readonly clientServiceA: ClientProxy
   ) {}
 
-  pingServiceA() {
+  pingServiceA(createUserDto: CreateUserDto) {
     const startTs = Date.now();
-    const pattern = { cmd: "ping" };
-    const payload = {};
+    const pattern = { cmd: "user" };
+    const payload = createUserDto
+    ;
     return this.clientServiceA
       .send<string>(pattern, payload)
       .pipe(
