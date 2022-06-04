@@ -7,9 +7,6 @@ jobs:
   # Dependencies
   serviceDependencies:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./service
     steps:
       # Pull Repository
       - name: Pull repository
@@ -27,19 +24,19 @@ jobs:
         with:
           node-version: '14'
 
-      # Get Cached Dependencies
+      # # Get Cached Dependencies
       - name: Get Cached Dependencies
         uses: actions/cache@v2
-        working-directory: ./service
         id: npm-cache
         with:
-          path: node_modules
+          path: service/node_modules
           key: node-modules-${{ hashfiles('package-lock.json') }}
 
       # Install Dependencies
       - name: Install Dependencies
-        working-directory: ./service
-        run: npm install
+        run: |
+          cd service
+          npm install
 
       - name: List
         working-directory: ./service
@@ -74,20 +71,26 @@ jobs:
         uses: actions/cache@v2
         id: npm-cache
         with:
-          path: node_modules
+          path: service/node_modules
           key: node-modules-${{ hashfiles('package-lock.json') }}
 
       # Install Dependencies
       - name: Install Dependencies
-        run: npm install
+        run: |
+          cd service
+          npm install
 
       # Prisma Generate
       - name: Prisma Generate
-        run: npx prisma:generate
+        run: |
+          cd service
+          npx prisma:generate
 
       # Build
       - name: Build
-        run: npm run build
+         run: |
+          cd service
+          npm run build
 
   # # Test
   # serviceTest:
