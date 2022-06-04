@@ -22,4 +22,5 @@ volumes:
   postgres-data:
 
 networks:
-  private:
+  private: 
+  
