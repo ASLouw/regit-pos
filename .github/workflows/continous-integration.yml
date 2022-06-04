@@ -46,9 +46,6 @@ jobs:
   serviceBuild:
     needs: serviceDependencies
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./service
     steps:
       # Pull Repository
       - name: Pull Repository
@@ -73,6 +70,10 @@ jobs:
         with:
           path: service/node_modules
           key: node-modules-${{ hashfiles('package-lock.json') }}
+
+      - name: List
+        working-directory: ./service
+        run: ls
 
       # Install Dependencies
       - name: Install Dependencies
