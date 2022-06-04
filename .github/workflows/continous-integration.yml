@@ -97,9 +97,6 @@ jobs:
   serviceTest:
     needs: serviceDependencies
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./service
     steps:
       # Pull Repository
       - name: Pull Repository
