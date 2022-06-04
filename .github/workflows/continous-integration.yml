@@ -117,9 +117,9 @@ jobs:
       #     key: node-modules-${{ hashfiles('service/package-lock.json') }}
 
       - name: Install Dependencies
-      run: |
-        cd service
-        npm install
+        run: |
+          cd service
+          npm install
 
       # # Prisma Generate
       # - name: Prisma Generate
