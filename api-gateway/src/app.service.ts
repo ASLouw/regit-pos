@@ -10,15 +10,33 @@ export class AppService {
     @Inject("SERVICE") private readonly userService: ClientProxy
   ) {}
 
-  pingServiceA(createUserDto: CreateUserDto) {
-    const startTs = Date.now();
+  createUser(createUserDto: CreateUserDto) {
     const pattern = { cmd: "createUser" };
-    const payload = createUserDto
-    ;
+    const payload = createUserDto;
     return this.userService
       .send<string>(pattern, payload)
       .pipe(
-        map((message: string) => ({ message, duration: Date.now() - startTs }))
+        map((message: string) => ({ message }))
+      );
+  }
+
+  getUser(id:number) {    
+    const pattern = { cmd: "getUser" };
+    const payload = id;
+    return this.userService
+      .send<string>(pattern, payload)
+      .pipe(
+        map((message: string) => ({ message }))
+      );
+  }
+
+  getUsers() {    
+    const pattern = { cmd: "getUsers" };
+    const payload = {};
+    return this.userService
+      .send<string>(pattern, payload)
+      .pipe(
+        map((message: string) => ({ message }))
       );
   }
 }
