@@ -13,34 +13,43 @@ model User {
   name       String?
   role       String   @default("Client")
   clientUser Report[]
+
   @@map("users")
 }
 
 model Item {
-  id    Int            @id @default(autoincrement())
-  name  String
-  price Decimal
-  sales ItemsOnSales[]
+  id         Int     @id @default(autoincrement())
+  name       String
+  price      Decimal
+
   @@map("items")
 }
 
+// model ItemList {
+//   id Int @id @default(autoincrement())
+
+//   items Item[]
+//   @@map("itemsLists")
+// }
+
 model Sale {
-  id         Int            @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
   totalPrice Decimal
-  items      ItemsOnSales[]
+  items      String
   reports    Report[]
+
   @@map("sales")
 }
 
-model ItemsOnSales {
-  sale       Sale     @relation(fields: [saleId], references: [id])
-  saleId     Int // relation scalar field (used in the `@relation` attribute above)
-  category   Item     @relation(fields: [itemId], references: [id])
-  itemId     Int // relation scalar field (used in the `@relation` attribute above)
-  assignedAt DateTime @default(now())
-  assignedBy String
-  @@id([itemId, saleId])
-}
+// model ItemsOnSales {
+//   sale       Sale     @relation(fields: [saleId], references: [id])
+//   saleId     Int // relation scalar field (used in the `@relation` attribute above)
+//   category   Item     @relation(fields: [itemId], references: [id])
+//   itemId     Int // relation scalar field (used in the `@relation` attribute above)
+//   assignedAt DateTime @default(now())
+//   assignedBy String
+//   @@id([itemId, saleId])
+// }
 
 model Report {
   id       Int   @id @default(autoincrement())
@@ -48,5 +57,6 @@ model Report {
   clientId Int?
   sale     Sale? @relation(fields: [saleId], references: [id])
   saleId   Int?
+
   @@map("reports")
 }
