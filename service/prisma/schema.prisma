@@ -12,7 +12,6 @@ model User {
   email      String   @unique
   name       String?
   role       String   @default("Client")
-  clientUser Report[]
 
   @@map("users")
 }
@@ -36,7 +35,6 @@ model Sale {
   id         Int      @id @default(autoincrement())
   totalPrice Decimal
   items      String
-  reports    Report[]
 
   @@map("sales")
 }
@@ -53,9 +51,8 @@ model Sale {
 
 model Report {
   id       Int   @id @default(autoincrement())
-  client   User? @relation(fields: [clientId], references: [id])
   clientId Int?
-  sale     Sale? @relation(fields: [saleId], references: [id])
+  cashierId Int?
   saleId   Int?
 
   @@map("reports")
