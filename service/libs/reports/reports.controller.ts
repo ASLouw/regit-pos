@@ -26,6 +26,6 @@ export class ReportsController {
   @MessagePattern({ cmd: 'updateReport' })
   update(@Payload() updateReportDto: UpdateReportDto) {
     const id = updateReportDto.id    
-    return this.reportService.updateReport({where:{id}, data:{chasierId:updateReportDto.cashierId, clientId:updateReportDto.clientId, saleId:updateReportDto.saleId} });
+    return this.reportService.updateReport({where:{id}, data:{cashierId:updateReportDto.cashierId, clientId:updateReportDto.clientId, saleId:updateReportDto.saleId} });
   }
 }

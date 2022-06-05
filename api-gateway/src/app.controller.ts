@@ -1,9 +1,11 @@
 import { Body, Controller, Get, Post } from "@nestjs/common";
 import { AppService } from "./app.service";
 import { CreateItemDto } from "./libs/dto/create-item.dto";
+import { CreateReportDto } from "./libs/dto/create-report.dto";
 import { CreateSaleDto } from "./libs/dto/create-sale.dto";
 import { CreateUserDto } from "./libs/dto/create-user.dto";
 import { UpdateItemDto } from "./libs/dto/update-item.dto";
+import { UpdateReportDto } from "./libs/dto/update-report.dto";
 import { UpdateSaleDto } from "./libs/dto/update-sale.dto";
 import { UpdateUserDto } from "./libs/dto/update-user.dto";
 
@@ -71,5 +73,26 @@ export class AppController {
    @Post("/sales/getSales")
    getSales() {
      return this.appService.getSales();
+   }
+
+   // Reports
+   @Post("/reports/createReport")
+   createReport(@Body() createReportDto: CreateReportDto) {
+     return this.appService.createReport(createReportDto);
+   }
+ 
+   @Post("/reports/updateReport")
+   updateReport(@Body() updateReportDto: UpdateReportDto) {
+     return this.appService.updateReport(updateReportDto);
+   }
+ 
+   @Post("/reports/getReport")
+   getReport(@Body() id: number) {
+     return this.appService.getReport(id);
+   }
+ 
+   @Post("/reports/getReports")
+   getReports() {
+     return this.appService.getReports();
    }
 }

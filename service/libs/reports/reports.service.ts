@@ -9,8 +9,10 @@ export class ReportsService {
   async report(
     reportWhereUniqueInput: Prisma.ReportWhereUniqueInput,
   ): Promise<Report | null> {
+    const id:number  = Number(reportWhereUniqueInput.id['id'])
+
     return this.prisma.report.findUnique({
-      where: reportWhereUniqueInput,
+      where: {id},
     });
   }
 
@@ -32,8 +34,16 @@ export class ReportsService {
   }
 
   async createReport(data: Prisma.ReportCreateInput): Promise<Report> {
+    const cashierId:number  = Number(data.cashierId);
+    const clientId:number  = Number(data.clientId);
+    const saleId:number  = Number(data.saleId);
+
+    data.cashierId = Number(data.cashierId);
+    data.clientId= Number(data.clientId);
+    data.saleId= Number(data.saleId);
+    
     return this.prisma.report.create({
-      data,
+      data
     });
   }
 
@@ -42,9 +52,22 @@ export class ReportsService {
     data: Prisma.ReportUpdateInput;
   }): Promise<Report> {
     const { where, data } = params;
+    const id:number  = Number(where.id);
+
+
+    if(data.cashierId)
+      data.cashierId = Number(data.cashierId);
+
+    if(data.clientId)
+      data.clientId= Number(data.clientId);
+
+    if(data.saleId)
+      data.saleId= Number(data.saleId);
+
     return this.prisma.report.update({
       data,
-      where,
+      where:{id},
+      
     });
   }
 
