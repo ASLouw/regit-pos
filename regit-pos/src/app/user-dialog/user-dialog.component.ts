@@ -16,9 +16,9 @@ export class UserDialogComponent {
   ) {}
 
   cancel(): void {
-    this.data.user.name = this.backupUser.name;
-    this.data.user.email = this.backupUser.email;
-    this.data.user.role = this.backupUser.role;
+    // this.data.user.name = this.backupUser.name;
+    // this.data.user.email = this.backupUser.email;
+    // this.data.user.role = this.backupUser.role;
     this.dialogRef.close(this.data);
   }
 }

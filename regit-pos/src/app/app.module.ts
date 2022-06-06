@@ -14,12 +14,24 @@ import { FormsModule } from '@angular/forms';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
 import {CdkAccordionModule} from '@angular/cdk/accordion';
 import { HttpClientModule } from '@angular/common/http';
+import { ItemManagerComponent } from './item-manager/item-manager.component';
+import { ItemDialogComponent } from './item-dialog/item-dialog.component';
+import { SaleDialogComponent } from './sale-dialog/sale-dialog.component';
+import { ReportDialogComponent } from './report-dialog/report-dialog.component';
+import { ReportManagerComponent } from './report-manager/report-manager.component';
+import { SaleManagerComponent } from './sale-manager/sale-manager.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserManagerComponent,
     UserDialogComponent,
+    ItemManagerComponent,
+    ItemDialogComponent,
+    SaleDialogComponent,
+    ReportDialogComponent,
+    ReportManagerComponent,
+    SaleManagerComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,3 +50,4 @@ import { HttpClientModule } from '@angular/common/http';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

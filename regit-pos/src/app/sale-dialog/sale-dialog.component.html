@@ -1,0 +1,22 @@
+<mat-form-field>
+    <mat-label>Total Price</mat-label>
+    <input matInput cdkFocusInitial [(ngModel)]="data.sale.totalPrice" />
+  </mat-form-field>
+  
+  <mat-form-field>
+    <mat-label>Items</mat-label>
+    <textarea matInput [(ngModel)]="data.sale.items"></textarea>
+  </mat-form-field>
+    
+  <div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="{ sale: data.sale }">OK</button>
+    <button mat-button (click)="cancel()">Cancel</button>
+    <button
+    *ngIf="data.enableDelete"
+    mat-fab
+    color="primary"
+    aria-label="Delete"
+    [mat-dialog-close]="{ sale: data.sale, delete: true }">
+    <mat-icon>delete</mat-icon>
+  </button>
+  </div>

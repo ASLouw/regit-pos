@@ -27,7 +27,7 @@
     [attr.id]="'accordion-body-' + 0"
     [attr.aria-labelledby]="'accordion-header-' + 0">
       <button (click)="newUser()" mat-button>
-        <mat-icon>add</mat-icon> Add Task
+        <mat-icon>add</mat-icon> Add User
       </button>
 
       <div class="container-wrapper">
@@ -35,7 +35,38 @@
           <app-user-manager (edit)="editUser($event)" *ngFor="let user of userList" [user]="user"></app-user-manager>
         </div>
       </div>
-</div>
+    </div>
+  </cdk-accordion-item>
+
+  <cdk-accordion-item   
+    #accordionItem="cdkAccordionItem"
+    class="example-accordion-item"
+    role="button"
+    tabindex="0"
+    [attr.id]="'accordion-header-' + 1"
+    [attr.aria-expanded]="accordionItem.expanded"
+    [attr.aria-controls]="'accordion-body-' + 1">
+    <div class="example-accordion-item-header" (click)="accordionItem.toggle()">
+      Item Manager
+      <span class="example-accordion-item-description">
+        Click to {{ accordionItem.expanded ? 'close' : 'open' }}
+      </span>
+    </div>
+    <div class="example-accordion-item-body"
+    role="region"
+    [style.display]="accordionItem.expanded ? '' : 'none'"
+    [attr.id]="'accordion-body-' + 1"
+    [attr.aria-labelledby]="'accordion-header-' + 1">
+      <button (click)="newItem()" mat-button>
+        <mat-icon>add</mat-icon> Add Item
+      </button>
+
+      <div class="container-wrapper">
+        <div class="container">
+          <app-item-manager (edit)="editItem($event)" *ngFor="let item of itemList" [item]="item"></app-item-manager>
+        </div>
+      </div>
+    </div>
   </cdk-accordion-item>
 </cdk-accordion>
 

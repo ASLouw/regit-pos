@@ -1,0 +1,13 @@
+<mat-card class="sale" *ngIf="sale">
+    <h2>ID {{ sale.id }}</h2>
+    <p>
+        {{ sale.id }}      
+    </p>
+    <p>
+        Total Price: {{ sale.totalPrice }}      
+    </p>
+    <p>
+       Items: {{ sale.items }}
+    </p>
+    <button mat-button (click)="edit.emit(sale)">Edit</button>
+  </mat-card>

@@ -1,0 +1,27 @@
+<mat-form-field>
+    <mat-label>Client ID</mat-label>
+    <input matInput cdkFocusInitial [(ngModel)]="data.report.clientId" />
+  </mat-form-field>
+  
+  <mat-form-field>
+    <mat-label>Cashier ID</mat-label>
+    <textarea matInput [(ngModel)]="data.report.cashierId"></textarea>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Sale ID</mat-label>
+    <textarea matInput [(ngModel)]="data.report.saleId"></textarea>
+  </mat-form-field>
+  
+  <div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="{ report: data.report }">OK</button>
+    <button mat-button (click)="cancel()">Cancel</button>
+    <button
+    *ngIf="data.enableDelete"
+    mat-fab
+    color="primary"
+    aria-label="Delete"
+    [mat-dialog-close]="{ report: data.report, delete: true }">
+    <mat-icon>delete</mat-icon>
+  </button>
+  </div>
