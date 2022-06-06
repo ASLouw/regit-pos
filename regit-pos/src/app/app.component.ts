@@ -30,8 +30,11 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllUsers();
+    this.getAllItems();
+    this.getAllReports();
+    this.getAllSales();
   }
-  
+
   constructor(private dialog: MatDialog, private http: HttpClient) {}
   expandedIndex = 0;
 
@@ -44,19 +47,19 @@ export class AppComponent implements OnInit {
   }
 
   getAllItems() {
-    this.http.post('http://localhost:3000/users/getItems',{}).subscribe((data: any) => {
+    this.http.post('http://localhost:3000/items/getItems',{}).subscribe((data: any) => {
       this.itemList = JSON.parse(JSON.stringify(data['message'])) as Item[]
     });
   }
 
   getAllReports() {
-    this.http.post('http://localhost:3000/users/getReports',{}).subscribe((data: any) => {
+    this.http.post('http://localhost:3000/reports/getReports',{}).subscribe((data: any) => {
       this.reportList = JSON.parse(JSON.stringify(data['message'])) as Report[]
     });
   }
 
   getAllSales() {
-    this.http.post('http://localhost:3000/users/getSales',{}).subscribe((data: any) => {
+    this.http.post('http://localhost:3000/sales/getSales',{}).subscribe((data: any) => {
       this.saleList = JSON.parse(JSON.stringify(data['message'])) as Sale[]
     });
   }
@@ -80,10 +83,9 @@ export class AppComponent implements OnInit {
           return;
         }
         this.userList.push(result.user);       
-        this.http.post('http://localhost:3000/users/createUser',{email:result.user.email, name:result.user.name, role:result.user.role}).subscribe((data: any) => {
-          console.log(data)
-      // this.itemList = JSON.parse(JSON.stringify(data['message'])) as Item[]
-    });
+        this.http.post('http://localhost:3000/users/createUser',{email:result.user.email, name:result.user.name, role:result.user.role}).subscribe((data: any) => {});
+    this.getAllUsers();
+
       });
   }
 
@@ -122,7 +124,10 @@ export class AppComponent implements OnInit {
         if (!result) {
           return;
         }
-        this.itemList.push(result.item);       
+        this.itemList.push(result.item);   
+        this.http.post('http://localhost:3000/items/createItem',{ name:result.item.name, price:result.item.price}).subscribe((data: any) => {});    
+    this.getAllItems();
+
       });
   }
 
@@ -161,7 +166,10 @@ export class AppComponent implements OnInit {
         if (!result) {
           return;
         }
-        this.reportList.push(result.report);       
+        this.reportList.push(result.report);     
+        this.http.post('http://localhost:3000/reports/createReport',{ cashierId:result.report.cashierId, clientId:result.report.clientId,saleId:result.report.saleId }).subscribe((data: any) => {});    
+        this.getAllReports();
+
       });
   }
 
@@ -200,7 +208,9 @@ export class AppComponent implements OnInit {
         if (!result) {
           return;
         }
-        this.saleList.push(result.sale);       
+        this.saleList.push(result.sale);    
+        this.http.post('http://localhost:3000/sales/createSale',{ items:result.sale.items, totalPrice:result.sale.totalPrice }).subscribe((data: any) => {});  
+        this.getAllSales();
       });
   }
 
