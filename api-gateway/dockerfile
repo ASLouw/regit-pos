@@ -1,0 +1,15 @@
+FROM node:14-alpine
+
+WORKDIR /app
+
+COPY . .
+
+RUN npm install --production; 
+
+# COPY ./libs/app/database/src/lib/prisma .
+# COPY ./dist/apps/app/services/protos/ ./dist/apps/app/services/protos/ 
+# COPY ./libs/app/shared/services/protos/src/lib/ ./libs/app/shared/services/protos/src/lib/
+
+ENV PORT=3000
+EXPOSE $PORT
+CMD  node ./dist/main.js
