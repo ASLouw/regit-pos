@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UsersService } from './users.service';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { UpdateUserDto } from 'libs/dto/update-user.dto';
+import { UpdateUserDto } from '../dto/update-user.dto';
 import { Prisma } from '.prisma/client';
 
 @Controller('users')

@@ -1,0 +1,13 @@
+<mat-card class="report" *ngIf="report">
+    <h2>ID: {{ report.id }}</h2>
+    <p>
+        Client ID: {{ report.clientId }}      
+    </p>
+    <p>
+        Cashier ID: {{ report.cashierId }}      
+    </p>
+    <p>
+        Sale ID: {{ report.saleId }}
+    </p>
+    <button mat-button (click)="edit.emit(report)">Edit</button>
+  </mat-card>

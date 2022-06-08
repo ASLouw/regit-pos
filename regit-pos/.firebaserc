@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "regit-pos"
+  },
+  "targets": {
+    "regit-pos": {
+      "hosting": {
+        "regit-pos": [
+          "regit-pos"
+        ]
+      }
+    }
+  }
+}

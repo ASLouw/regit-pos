@@ -1,0 +1,13 @@
+<mat-card class="user" *ngIf="user">
+    <h2>Name: {{ user.name }}</h2>
+    <p>
+        ID: {{ user.id }}      
+    </p>
+    <p>
+        Email: {{ user.email }}      
+    </p>
+    <p>
+        Role: {{ user.role }}
+    </p>
+    <button mat-button (click)="edit.emit(user)">Edit</button>
+  </mat-card>
